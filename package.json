@@ -1,0 +1,16 @@
+{
+  "name": "yoga-layout-benchmark",
+  "version": "1.0.0",
+  "description": "Performance benchmark comparing Bun.Yoga vs yoga-wasm-web",
+  "main": "benchmark.js",
+  "scripts": {
+    "benchmark": "node benchmark.js",
+    "benchmark:bun": "bun benchmark.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "yoga-layout-prebuilt": "^1.10.0"
+  }
+}
