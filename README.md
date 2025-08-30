@@ -42,7 +42,7 @@ The benchmark tests various layout scenarios from simple flexbox layouts to comp
 - **CPU**: 80 cores
 - **Memory**: 251GB
 - **Node.js**: v24.3.0
-- **Bun**: v1.2.22+ (with Yoga support)
+- **Bun**: v1.2.22-canary.1+24b1a87f1 (with native Yoga support)
 
 ### Performance Results
 
@@ -56,10 +56,40 @@ The benchmark tests various layout scenarios from simple flexbox layouts to comp
 | Complex App (50 nodes) | 0.481ms | 0.479ms | 0.472ms | 0.536ms | 0.496ms | 0.536ms |
 
 #### Bun + Bun.Yoga (Native Implementation)
-*Results pending - build in progress*
 
-### Bun vs Node.js Performance Comparison
-*Will be populated once Bun build with Yoga support is complete*
+| Scenario | Average | Median | Min | Max | P95 | P99 |
+|----------|---------|--------|-----|-----|-----|-----|
+| Simple Flexbox (11 nodes) | 0.012ms | 0.011ms | 0.011ms | 0.036ms | 0.014ms | 0.036ms |
+| Nested Grid (111 nodes) | 0.244ms | 0.240ms | 0.238ms | 0.266ms | 0.262ms | 0.266ms |
+| Deep Nested (21 nodes) | 0.046ms | 0.045ms | 0.044ms | 0.066ms | 0.054ms | 0.066ms |
+| Complex App (50 nodes) | 0.145ms | 0.143ms | 0.141ms | 0.172ms | 0.166ms | 0.172ms |
+
+#### Bun + yoga-layout-prebuilt (WebAssembly - for comparison)
+
+| Scenario | Average | Median | Min | Max | P95 | P99 |
+|----------|---------|--------|-----|-----|-----|-----|
+| Simple Flexbox (11 nodes) | 0.190ms | 0.174ms | 0.144ms | 0.375ms | 0.296ms | 0.375ms |
+| Nested Grid (111 nodes) | 1.091ms | 0.841ms | 0.793ms | 1.968ms | 1.913ms | 1.968ms |
+| Deep Nested (21 nodes) | 0.362ms | 0.362ms | 0.335ms | 0.494ms | 0.394ms | 0.494ms |
+| Complex App (50 nodes) | 0.585ms | 0.512ms | 0.492ms | 1.222ms | 1.201ms | 1.222ms |
+
+### Performance Comparison Summary
+
+| Scenario | Bun.Yoga (Native) | WebAssembly | **Speedup** | Performance Gain |
+|----------|-------------------|-------------|-------------|------------------|
+| Simple Flexbox Layout | 0.012ms | 0.190ms | **15.76x faster** | 1,476% improvement |
+| Nested Flexbox Grid | 0.244ms | 1.091ms | **4.48x faster** | 348% improvement |
+| Deep Nested Layout | 0.046ms | 0.362ms | **7.92x faster** | 692% improvement |
+| Complex App Layout | 0.145ms | 0.585ms | **4.04x faster** | 304% improvement |
+
+### Key Findings
+
+🚀 **Bun.Yoga delivers exceptional performance improvements:**
+
+- **Up to 15.76x faster** for simple layouts
+- **Consistent 4-8x speedup** across all scenarios  
+- **Sub-millisecond performance** for most common layouts
+- **Dramatic improvement** in P95/P99 latency characteristics
 
 ### Detailed Statistics
 
@@ -197,7 +227,7 @@ MIT License - See LICENSE file for details
 
 ## Versions
 
-- **Bun**: v1.2.22+
+- **Bun**: v1.2.22-canary.1+24b1a87f1 (jarred/yogaa branch)
 - **yoga-layout-prebuilt**: v1.10.0
 - **Node.js**: v24.3.0+
 
